@@ -9,9 +9,9 @@ profile:
   image: prof_pic.jpg
   image_circular: true # crops the image to make it circular
   more_info: >
-    <p>Politecnico di Milano</p>
-    <p>AI-Tech Research Lab</p>
-    <p>Milan, Italy</p>
+    <p>   Politecnico di Milano</p>
+    <p>   AI-Tech Research Lab</p>
+    <p>   Milan, Italy</p>
 
 
 news: true # includes a list of news items
