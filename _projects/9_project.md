@@ -10,7 +10,7 @@ related_publications: false
 
 <a href="https://github.com/mehmetemreakbulut/multivariate-time-series-analysis-dlsolutions">Github Page</a>
 <br><br>
-[PDF](../../assets/pdf/report-time-series.pdf)
+[PDF](https://github.com/mehmetemreakbulut/multivariate-time-series-analysis-dlsolutions/blob/master/report.pdf)
 
 In the end, our best performing submission was BiLSTM with Convolutional Layer with an MSE score of 0.010 in the final phase of the
 competition. Even though the transformer,that is built from scratch, is a larger model,
