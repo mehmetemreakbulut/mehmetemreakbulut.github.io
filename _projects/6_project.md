@@ -1,80 +1,31 @@
 ---
 layout: page
-title: project 6
-description: a project with no image
-img:
-importance: 4
+title: Milano Sensor Data NodeRED
+description:
+img: assets/img/default-project.jpg
+importance: 1
 category: fun
+related_publications: false
 ---
+<a href="https://github.com/mehmetemreakbulut/milano-sensor-data-nodered">Github Page</a>
+<br><br>
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+## Description of message flows
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+### Description of functions:
+Message Validator: We check received telegram message if the format of the message is appropriate and filter acceptable questions. If message format is not true, it sends possible commands.
+Message Parser: We get telegram message from validator if it valid message and parse the message according to city, wind/temp_forecast, two-days/tomorrow and send to different OpenWeather map nodes if it is Milan or Rome. We are passing variable called as "increment" which is "1" if tomorrow and "2" if two days.
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+Milan:OpenWeather node to get data from Milan
+Rome:OpenWeather node to get data from Milan
 
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
+Closest Time Slot Finder: It gets current time from the data and loop through the forecast array and according to tomorrow or two day (with increment variable). We select the closest timestamp as forecasted which has min difference for estimated time.
+Response Creator:We are getting global response variables and set global response as sender message, we are also checking and formatting message if it is changed according to last asked time or not.
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+Text Node:\{\{payload.day\}\} \{\{payload.query\}\} for \{\{payload.city\}\} is \{\{payload.response\}\}.
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
+\{\{payload.extra_cont\}}  Extra_cont stands for whether question asked before or not.
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+Flow initialize trigger and Flow variable initializer: We are initializing our object in nested object. City(Milan or Rome), query(forecast or wind), date(Tomorrow or Two-Days).
 
-{% raw %}
-
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-```
-
-{% endraw %}
+File Log Trigger & Log Function & "/data/WeatherLog.txt": Which triggers every minutes.  It overrides to the text file in docker path; counter of wind_speed and weather_forecast variables in last minute.

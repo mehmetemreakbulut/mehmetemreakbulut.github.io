@@ -13,7 +13,7 @@ footer_text: >
   Mehmet Emre Akbulut
 keywords: machine-learning, efficient-ml, tiny-ml, ml-robustness # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: 8.jpg # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
+icon: neural-network.png # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
 url: https://mehmetemreakbulut.github.io
 baseurl:

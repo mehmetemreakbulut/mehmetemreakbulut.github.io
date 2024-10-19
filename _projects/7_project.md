@@ -1,81 +1,29 @@
 ---
 layout: page
-title: project 7
-description: with background image
-img: assets/img/4.jpg
+title: Akka Dispatcher on Temperature Sensor
+description:
+img: assets/img/default-project.jpg
 importance: 1
-category: work
-related_publications: true
+category: fun
+related_publications: false
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+<a href="https://github.com/mehmetemreakbulut/akka-dispatcher-on-temperature-sensor">Github Page</a>
+<br><br>
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+## Description of message flows
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+We have 3 actor types; DispatcherActor, SensorProcessorActor, TemperatureSensorActor.
 
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
+We also added a new message type that isConfigMsg.
 
-You can also put regular text between your rows of images, even citations {% cite einstein1950meaning %}.
-Say you wanted to write a bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+DispatcherActor:
+We have two HashMap for Load Balancer, SensorCountsForLB and SensorToProcessorMap.
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
+SensorCountsForLB maps the processors to number of sensor they have assigned and SensorToProcessorMap handles the dispatcher act to which processor it should send the msg.
+For round robin we have one list(SensorToProcessorList) and one index that handles where are we inside our list. According to DispatchLogic Msg, we are changing the behavior of the actor. When it is RoundRobin and when a temperature message is received, we are incrementing currentProcessor to move forward in the list. In LoadBalancer,when a temperature message is received, the LoadBalancer checks if the corresponding sensor is already mapped to a processor. If it is, the message is forwarded to that processor. If not, it identifies the processor with the minimum message count, incrementally assigns the sensor to that processor, updates the message count, and then forwards the message to the chosen processor.
+when creating sesnors we send a ConfigMsg so they know the dispatcher.
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+In the main, we crated sensors and dispatcher, also we use GenerateMsg type to tell the sensors that they .Sensors tells to dispatcher temperature info with TemperatureMsg. We also changed to RR and Loadbalancer and visaversa.
 
-{% raw %}
-
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-```
-
-{% endraw %}
+For error handling we throw an exception in the Processor, the handler and master is the dispatcher (which has created them) it handles it with OneToOne and resumes after a failure.
