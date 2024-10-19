@@ -24,6 +24,8 @@ My current research focuses on the the <b>bit allocations of the quantized neura
 You can find some side projects on compressing some computer vision and language models among my github repositories.
 
 ## Education
-* MSc in Computer Science and Engineering, Politecnico di Milano, 2023-2025
-* BSc in Computer Science and Engineering, Bogazici University, 2018-2023
-* High School, Karatay Science High School, 2014-2018
+* <b>M.Sc.</b> in Computer Science and Engineering, Politecnico di Milano, 2023-2025
+* <b>B.Sc.</b> in Computer Science and Engineering, Bogazici University, 2018-2023
+* <b>High School</b>, Karatay Science High School, 2014-2018
+
+:page_with_curl: Download my [CV](file:///Users/emreakbulut/Downloads/Academic_CV_Template%20(1).pdf).
