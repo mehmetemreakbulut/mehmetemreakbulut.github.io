@@ -18,7 +18,8 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false # includes social icons at the bottom of the page
 ---
 
-I am a Master student at Politecnico di Milano CS program. I have been selected for <b>PoliMi Honours Program</b> and I am currently working on my thesis at AI-Tech Research Lab with Professor Manuel Roveri.
+I am a Master student at Politecnico di Milano CS program. I have been selected for <br>
+<b>PoliMi Honours Program</b> and I am currently working on my thesis at AI-Tech Research Lab with Professor Manuel Roveri.
 My research interests include <b> Machine Learning/Deep Learning, TinyML, ML Efficiency and Learning Representations </b>. <br>
 My current research focuses on the the <b>bit allocations of the quantized neural networks in the mixed precision dynamic settings</b>. Focusing on how the information propagates through the network and the theoretical bounds of the quantization.<br>
 You can find some side projects on compressing some computer vision and language models among my github repositories.
