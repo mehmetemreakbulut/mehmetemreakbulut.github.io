@@ -1,5 +1,7 @@
 ---
 layout: default
+redirect: https://medium.com/@memreakbulut/genie-synthetic-data-for-zero-shot-quantization-77c33ae92ca2
+url: https://medium.com/@memreakbulut/genie-synthetic-data-for-zero-shot-quantization-77c33ae92ca2
 permalink: /blog/
 title: blog
 nav: true
