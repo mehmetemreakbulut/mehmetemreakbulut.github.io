@@ -4,7 +4,7 @@ title: Genie, Show Me the Data for Quantization
 description: PyTorch implementation of our CVPR 2023 paper "Genie, Show Me the Data for Quantization"
 img: assets/img/pipeline.png
 importance: 1
-category: efficientML
+category: [efficientML, computer vision]
 related_publications: false
 ---
 
