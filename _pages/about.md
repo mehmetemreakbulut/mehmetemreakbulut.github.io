@@ -33,4 +33,4 @@ You can find some side projects on compressing some computer vision and language
 * <b>B.Sc.</b> in Computer Science and Engineering, Bogazici University, 2018-2023, Istanbul, Turkey
 * <b>High School</b>, Karatay Science High School, 2014-2018, Konya, Turkey
 
-:page_with_curl: Download my [CV](file:///Users/emreakbulut/Downloads/Academic_CV_Template%20(1).pdf).
+:page_with_curl: Download my [CV](https://drive.google.com/file/d/1WagSs1uvgIxMd5QhjHkJaGUMh1qMxaFd/view?usp=sharing).
